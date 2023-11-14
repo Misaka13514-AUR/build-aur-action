@@ -14,7 +14,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/clansty/build-aur-action:main'
+  image: 'docker://ghcr.io/misaka13514-aur/build-aur-action:main'
   args:
     - ${{ inputs.repo-name }}
   env:
