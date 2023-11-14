@@ -6,7 +6,7 @@ yay -Syu
 
 useradd builder -m
 echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-echo 'PACKAGER="Clansty <i@gao4.pw>"
+echo 'PACKAGER="Misaka13514 <Misaka13514@gmail.com>"
 COMPRESSZST=(zstd -19 -c -z -q --threads=0 -)' > /home/builder/.makepkg.conf
 
 if [[ $pkgname != ./* ]];then
