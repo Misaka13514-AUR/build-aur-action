@@ -3,13 +3,14 @@ set -eu -o pipefail
 
 pkgname=$1
 
-yay -Syu --noconfirm
-
-if [[ $pkgname != ./* ]] && [[ ! -d $pkgname ]]; then
-  git clone https://aur.archlinux.org/$pkgname.git
-fi
-
 chmod -R a+rw . && chown -R builder:builder .
+
+sudo --set-home -u builder yay -Syu --noconfirm
+
+if [[ $pkgname != ./* ]]; then
+  rm -rf $pkgname
+  sudo --set-home -u builder git clone https://aur.archlinux.org/$pkgname.git
+fi
 
 cd $pkgname
 source PKGBUILD
