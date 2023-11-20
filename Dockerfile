@@ -1,18 +1,21 @@
-FROM archlinux:latest
+FROM archlinux:base-devel
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN date
 
 WORKDIR /tmp
-COPY pacman.conf /etc/pacman.conf
-COPY pacman32.conf /etc/pacman32.conf
 
-RUN pacman-key --init
-RUN pacman -Syu --noconfirm
-RUN pacman -S --noconfirm archlinuxcn-keyring
-RUN pacman -S --noconfirm base-devel yay cmake jdk11-openjdk
+COPY pacman.conf pacman32.conf /etc/
 
+RUN pacman-key --init \
+    && pacman -Syu --noconfirm yay git \
+    && rm -rf /var/cache/pacman/pkg/* \
+    && rm -rf /var/lib/pacman/sync/*
 
+RUN useradd builder -m \
+    && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+    && echo 'PACKAGER="Misaka13514 <Misaka13514@gmail.com>"' >> /etc/makepkg.conf \
+    && echo 'COMPRESSZST=(zstd -19 -c -z -q --threads=0 -)' >> /etc/makepkg.conf
 
 COPY entrypoint.sh /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"] 
