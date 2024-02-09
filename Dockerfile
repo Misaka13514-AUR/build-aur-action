@@ -14,7 +14,7 @@ RUN pacman-key --init \
 RUN useradd builder -m \
     && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
     && echo 'PACKAGER="Misaka13514 <Misaka13514@gmail.com>"' >> /etc/makepkg.conf \
-    && echo 'COMPRESSZST=(zstd -19 -c -z -q --threads=0 -)' >> /etc/makepkg.conf
+    && echo 'COMPRESSZST=(zstd -c -T0 --ultra -20 -)' >> /etc/makepkg.conf
 
 COPY entrypoint.sh /entrypoint.sh
 
