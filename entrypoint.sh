@@ -13,7 +13,9 @@ if [[ $pkgname != ./* ]]; then
 fi
 
 cd $pkgname
+set +u
 source PKGBUILD
+set -u
 
 for pkg in ${makedepends[@]} ${depends[@]}; do
   sudo --set-home -u builder yay -S --noconfirm --useask=false --needed --asdeps --overwrite='*' $pkg
