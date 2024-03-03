@@ -21,6 +21,6 @@ for pkg in ${makedepends[@]} ${depends[@]}; do
   sudo --set-home -u builder yay -S --noconfirm --useask=false --needed --asdeps --overwrite='*' $pkg
 done
 
-sudo --set-home -u builder CARCH=$ARCH makepkg -sfA --needed --noconfirm
+sudo --set-home -u builder CARCH=$ARCH makepkg -sfA --needed --noconfirm --skippgpcheck
 
 echo ::set-output name=filelist::$(sudo --set-home -u builder CARCH=$ARCH makepkg --packagelist | xargs)
